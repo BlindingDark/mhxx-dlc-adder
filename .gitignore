@@ -1,0 +1,15 @@
+# local-only/generated files
+README.md
+PLAN.md
+CHANGELOG.md
+DEPLOY.md
+package.json
+tests/
+data/work/
+node_modules/
+tmp/
+*.zip
+*.log
+.DS_Store
+scripts/
+__pycache__/

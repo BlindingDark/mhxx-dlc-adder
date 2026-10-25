@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="在浏览器本地为 MHXX / MHGU 3DS 存档追加汉化 DLC 任务和特殊随从猫。">
+  <link rel="icon" href="data:,">
+  <title>MHXX DLC 追加工具</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="hero">
+    <div class="wrap">
+      <p class="eyebrow">Monster Hunter XX / GU · 3DS DLC Adder</p>
+      <h1>MHXX DLC 追加工具</h1>
+      <p class="lead">
+        本工具提供将已经汉化的所有 DLC 任务和特殊随从猫追加到现有存档，保留角色、任务进度和已有随从猫。
+        全部处理都在本机浏览器完成。
+      </p>
+      <p class="notice">
+        实机请配合 <strong>Checkpoint</strong> 使用，使用前请务必妥善备份存档，以免存档损坏。
+      </p>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="panel">
+      <div class="panel-head">
+        <h2>1. 目标存档</h2>
+      </div>
+      <label class="dropzone" id="targetDrop">
+        <input id="targetFile" type="file" accept="*/*">
+        <span class="drop-title">选择或拖入目标 <code>system</code> 存档文件</span>
+        <span class="drop-sub">不会修改原文件；处理结果作为新文件下载</span>
+      </label>
+      <div id="targetSummary" class="summary muted">尚未选择目标存档。</div>
+    </section>
+
+    <section id="catSlotPanel" class="panel" hidden>
+      <div class="panel-head">
+        <h2>2. 追加猫的角色槽</h2>
+        <span class="hint">DLC 任务为全局数据，所有角色均可领取任务</span>
+      </div>
+      <div class="cat-picker-actions">
+        <button id="selectAllCatSlots" type="button" class="small-button">全选</button>
+        <button id="selectNoCatSlots" type="button" class="small-button">全不选</button>
+      </div>
+      <div id="catSlotList" class="options"></div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <h2>3. 选择特殊随从猫</h2>
+      </div>
+      <div id="catPickerPanel" class="cat-picker-panel" hidden>
+        <div class="cat-picker-head">
+          <div class="cat-picker-actions">
+            <button id="selectAllCats" type="button" class="small-button">全选</button>
+            <button id="selectNoCats" type="button" class="small-button">全不选</button>
+          </div>
+        </div>
+        <div id="catSelectionSummary" class="cat-selection-summary"></div>
+        <div id="catPicker" class="cat-grid"></div>
+        <div id="capacitySummary" class="capacity-summary muted"></div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <h2>4. 处理选项</h2>
+      </div>
+      <div class="options">
+        <label class="check">
+          <input id="mergeDlc" type="checkbox">
+          <span><strong>追加 DLC 任务</strong><small>添加活动任务与联动任务</small></span>
+        </label>
+        <label class="check">
+          <input id="mergeCats" type="checkbox">
+          <span><strong>追加特殊随从猫</strong><small>只写入空槽，不修改已有随从猫</small></span>
+        </label>
+        <label class="check">
+          <input id="keepCatLevel" type="checkbox">
+          <span><strong>导入随从猫时维持等级</strong><small>取相应角色槽内最高猫的等级；不勾选则导入为 1 级、0 经验</small></span>
+        </label>
+        <label class="check">
+          <input id="writeBackup" type="checkbox" checked>
+          <span><strong>同时生成 system_backup 副本</strong><small>ZIP 中额外包含同名内容，供 Checkpoint 文件夹恢复</small></span>
+        </label>
+      </div>
+      <div class="actions">
+        <button id="run" class="primary" disabled>生成新存档</button>
+      </div>
+      <div id="status" class="status" role="status" aria-live="polite"></div>
+    </section>
+
+    <section id="resultPanel" class="panel" hidden>
+      <div class="panel-head">
+        <h2>5. 结果</h2>
+        <span id="resultHint" class="hint"></span>
+      </div>
+      <div id="resultStats" class="stats"></div>
+      <div id="downloads" class="downloads"></div>
+      <details>
+        <summary>查看报告</summary>
+        <pre id="reportText"></pre>
+      </details>
+      <div class="backup-tip">
+        <strong>建议：</strong>保留 Checkpoint 原始备份。先在游戏里确认角色、已接受任务、已有随从猫和 DLC 任务列表，再继续使用。
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="wrap footer">
+    <span>MHXX DLC 追加工具</span>
+  </footer>
+
+  <script type="module" src="src/app.js"></script>
+</body>
+</html>
